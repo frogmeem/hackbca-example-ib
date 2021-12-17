@@ -38,7 +38,7 @@ router.get('/:project_id', function(req, res, next) {
   //     project = projects_data[i];
   // }
   //alternatively
-  let project = projects_data.find(function(evt){ return proj.project_id == project_id});
+  let project = projects_data.find(function(proj){ return proj.project_id == project_id});
   if (project === undefined ){
     next(); //pass along, send 404
   }
