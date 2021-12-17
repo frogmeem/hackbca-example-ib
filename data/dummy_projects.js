@@ -1,7 +1,7 @@
 module.exports =  [
     {
         "project_id": 1,
-        "project_name": "Opening Ceremony",
+        "project_name": "Gacha Bot",
         "project_location": "Auditorium",
         "project_type": "Main",
         "project_date_ymd": "2021-05-02",
