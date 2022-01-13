@@ -64,9 +64,9 @@
             </td>
             <td class="blue-text clickable" onclick="location.href='/events/{{event_id}}'">{{event_name}}</td>
             <td> <a href='?filter=location:{{event_location}}'>{{event_location}} </a></td>
-            <td><a href='?filter=date:05-02-2021'>{{event_date}}</a> {{event_time}}</td>
+            <td><a href='?filter=date:{{event_date_ymd}}'>{{event_date}}</a> {{event_time}}</td>
             <td>{{event_duration}}</td>
-            <td> <a href='?filter=type:Main'>{{event_type}}</a></td>
+            <td> <a href='?filter=type:{{event_type}}'>{{event_type}}</a></td>
             <td>{{event_interest}}<i class=material-icons>people</i></td>
             <!-- ADMIN ONLY BUTTONS -->
             <td nowrap>
