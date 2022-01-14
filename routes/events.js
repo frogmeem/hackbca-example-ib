@@ -1,27 +1,12 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs');
+const path = require('path');
 
 // const events_data = require('../data/dummy_events_v2')
 const db = require("../db/db");
 
-const select_all_events_sql = `
-SELECT 
-	event.event_id as event_id, 
-    event_name, 
-    event_location, 
-    event_type, 
-    DATE_FORMAT(event_dt, '%Y-%m-%d') as event_date_ymd, 
-    DATE_FORMAT(event_dt, '%b %d (%a)') as event_date, 
-    DATE_FORMAT(event_dt, '%l:%i %p') as event_time, 
-    event_duration, 
-    0 as event_interest
-FROM 
-	event, event_location, event_type
-WHERE
-    event.event_location_id = event_location.event_location_id
-    and event.event_type_id = event_type.event_type_id
-ORDER BY event_dt
-`
+const select_all_events_sql = fs.readFileSync(path.join(__dirname, "../db/queries/select_all_events.sql"), "utf-8")
 
 /* GET events page. */
 router.get('/', async function(req, res, next) {
@@ -34,10 +19,18 @@ router.get('/', async function(req, res, next) {
 
 });
 
-//npm install mysql dotenv
 
-router.get('/create', function(req, res, next) {
-  res.render('eventform', {title: 'Create New Event', style: "newevent"})
+const select_event_types_sql = fs.readFileSync(path.join(__dirname, "../db/queries/select_event_types.sql"), "utf-8")
+const select_event_locations_sql = fs.readFileSync(path.join(__dirname, "../db/queries/select_event_locations.sql"), "utf-8")
+
+router.get('/create', async function(req, res, next) {
+  let event_types = await db.queryPromise(select_event_types_sql);
+  let event_locations = await db.queryPromise(select_event_locations_sql);
+  
+  res.render('eventform', {title: 'Create New Event', 
+                            style: "newevent", 
+                            event_types: event_types,
+                          event_locations: event_locations})
 })
 
 router.get('/modify/:event_id', function(req, res, next) {
@@ -58,27 +51,7 @@ router.get('/modify/:event_id', function(req, res, next) {
 
 })
 
-const select_single_event_sql = `
-SELECT 
-	event.event_id as event_id, 
-    event_name, 
-    event_location, 
-    event_type, 
-    DATE_FORMAT(event_dt, '%Y-%m-%d') as event_date_ymd, 
-    DATE_FORMAT(event_dt, '%b %d (%a)') as event_date, 
-    DATE_FORMAT(event_dt, '%l:%i %p') as event_time, 
-    event_duration, 
-    0 as event_interest,
-    event_description
-FROM 
-	event, event_location, event_type
-WHERE
-   	event.event_id = ?
-    and event.event_location_id = event_location.event_location_id
-    and event.event_type_id = event_type.event_type_id
-ORDER BY event_dt
-LIMIT 1
-`
+const select_single_event_sql = fs.readFileSync(path.join(__dirname,"../db/queries/select_single_event.sql"), "utf-8")
 
 router.get('/:event_id', async function(req, res, next) {
   let event_id = req.params.event_id;
@@ -92,5 +65,25 @@ router.get('/:event_id', async function(req, res, next) {
     res.render('event', { title: event.event_name, style: "tables", event: event});
   }
 });
+
+const insert_event_sql = fs.readFileSync(path.join(__dirname,"../db/queries/insert_event.sql"), "utf-8")
+
+router.post("/", async function(req, res, next) {
+  let new_event_data = req.body;
+  // INSERT the new event data into our database
+  let results = await db.queryPromise(insert_event_sql, [
+    new_event_data.event_name,
+    new_event_data.event_type,
+    new_event_data.event_location,
+    `${new_event_data.event_date} ${new_event_data.event_time}`,
+    new_event_data.event_duration,
+    new_event_data.event_description
+  ])
+  // Get the id of the newly inserted row
+  let event_id = results.insertId;
+
+  res.redirect(`/events/${event_id}`);
+
+})
 
 module.exports = router;
