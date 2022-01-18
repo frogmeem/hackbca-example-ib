@@ -24,13 +24,18 @@ const select_event_types_sql = fs.readFileSync(path.join(__dirname, "../db/queri
 const select_event_locations_sql = fs.readFileSync(path.join(__dirname, "../db/queries/select_event_locations.sql"), "utf-8")
 
 router.get('/create', async function(req, res, next) {
-  let event_types = await db.queryPromise(select_event_types_sql);
-  let event_locations = await db.queryPromise(select_event_locations_sql);
-  
-  res.render('eventform', {title: 'Create New Event', 
-                            style: "newevent", 
-                            event_types: event_types,
-                          event_locations: event_locations})
+  try {
+    let event_types = await db.queryPromise(select_event_types_sql);
+    let event_locations = await db.queryPromise(select_event_locations_sql);
+    
+    res.render('eventform', {title: 'Create New Event', 
+                              style: "newevent", 
+                              event_types: event_types,
+                            event_locations: event_locations})
+  } catch(err) {
+    next(err);
+  }
+
 })
 
 router.get('/modify/:event_id', function(req, res, next) {
@@ -69,20 +74,26 @@ router.get('/:event_id', async function(req, res, next) {
 const insert_event_sql = fs.readFileSync(path.join(__dirname,"../db/queries/insert_event.sql"), "utf-8")
 
 router.post("/", async function(req, res, next) {
-  let new_event_data = req.body;
-  // INSERT the new event data into our database
-  let results = await db.queryPromise(insert_event_sql, [
-    new_event_data.event_name,
-    new_event_data.event_type,
-    new_event_data.event_location,
-    `${new_event_data.event_date} ${new_event_data.event_time}`,
-    new_event_data.event_duration,
-    new_event_data.event_description
-  ])
-  // Get the id of the newly inserted row
-  let event_id = results.insertId;
+  try {
+    
+    let new_event_data = req.body;
+    // INSERT the new event data into our database
+    let results = await db.queryPromise(insert_event_sql, [
+      new_event_data.event_name,
+      new_event_data.event_type,
+      new_event_data.event_location,
+      `${new_event_data.event_date} ${new_event_data.event_time}`,
+      new_event_data.event_duration,
+      new_event_data.event_description
+    ])
+    // Get the id of the newly inserted row
+    let event_id = results.insertId;
 
-  res.redirect(`/events/${event_id}`);
+    res.redirect(`/events/${event_id}`);
+
+  } catch (err) {
+    next(err);
+  }
 
 })
 
