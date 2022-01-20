@@ -70,7 +70,7 @@
             </div>
 
             <div class="button_wrapper">
-              <button class="submit waves-effect waves-light btn" type="submit">Create</button>
+              <button class="submit waves-effect waves-light btn" type="submit">Submit</button>
             </div>
           </div>
         </div>
@@ -106,6 +106,7 @@
 
             {{!-- Use triple mustaches to NOT escape characters --}}
 
+            document.getElementById("event_id").value = "{{{event_id}}}"
             document.getElementById("event_name").value = "{{{event_name}}}";
             document.getElementById("event_type").value = "{{{event_type}}}";
             document.getElementById("event_location").value = "{{{event_location}}}";
