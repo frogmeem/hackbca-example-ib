@@ -135,4 +135,24 @@ router.post("/", async function(req, res, next) {
 
 })
 
+let delete_event_sql = `
+DELETE
+FROM event
+WHERE 
+    event_id = ?
+`
+router.get("/:event_id/delete", async function(req, res, next) {
+  try {
+    let event_id = req.params.event_id;
+
+    let results = await db.queryPromise(delete_event_sql, [event_id])
+  
+    res.redirect("/events");
+  } catch(err) {
+    next(err);
+  }
+  
+
+});
+
 module.exports = router;
