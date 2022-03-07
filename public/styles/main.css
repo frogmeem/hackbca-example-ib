@@ -1,5 +1,5 @@
 html {
-    background-color: #90caf9 ; /*blue lighten-3*/
+    background-color: #999999 ; /*blue lighten-3*/
 }
 
 main {
@@ -14,7 +14,7 @@ body {
 
 /* Nav bar */
 nav {
-    background-color: #1e88e5;  /*blue darken-1*/
+    background-color: #494949;  /*blue darken-1*/
 }
 nav img {
     height: 3em;
@@ -23,14 +23,14 @@ nav img {
 }
 
 nav .btn, .sidenav .btn {
-    background-color: #d84315; /*deep-orange darken-3*/
+    background-color: #dfd25c; /*deep-orange darken-3*/
 }
 nav .btn:hover, .sidenav .btn:hover{
-    background-color: #f4511e; /*deep-orange darken-1*/
+    background-color: #f4df1e; /*deep-orange darken-1*/
 }
 
 /* footer */
 .page-footer {
-    background-color: #1e88e5; 
+    background-color: #494949; 
 }
 

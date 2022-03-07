@@ -3,13 +3,13 @@
 // setTimeout: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
 
 
-function confirmDelete(event_name, event_id){
-    if(confirm(`Are you sure you want to delete the event ${event_name} (id ${event_id})? This is PERMANENT and cannot be undone.`)) {
-        window.location.href = `/events/${event_id}/delete`;
+function confirmDelete(workout_name, workout_id){
+    if(confirm(`Are you sure you want to delete the workout ${workout_name} (id ${workout_id})? This is PERMANENT and cannot be undone.`)) {
+        window.location.href = `/workouts/${workout_id}/delete`;
     }
 }
 
-function toggleInterest(interestButton, event_id){
+function toggleInterest(interestButton, workout_id){
     let interestButtonIcon = interestButton.children[0];
     switch(interestButtonIcon.textContent) {
     case "star_border": //currently off, toggle on.

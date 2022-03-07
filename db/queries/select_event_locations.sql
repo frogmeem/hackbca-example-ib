@@ -1,2 +1,0 @@
-SELECT event_location_id, event_location
-from event_location

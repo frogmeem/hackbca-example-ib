@@ -35,9 +35,9 @@
                       <div class="card-image-gradient"> 
                           <img src="/images/assembly.jpg">
                       </div>
-                      <span class="card-title"><h1>{{event.event_name}}</h1></span>
+                      <span class="card-title"><h1>{{workout.workout_name}}</h1></span>
                     <!-- USER ONLY - Initialize page with appropriate state of button -->
-                    <a onclick='toggleInterest(this, "{{event.event_id }}")' class="btn-floating btn-large halfway-fab waves-effect waves-light scale-transition scale-in blue"><i class="material-icons">star_border</i></a>
+                    <a onclick='toggleInterest(this, "{{workout.workout_id }}")' class="btn-floating btn-large halfway-fab waves-effect waves-light scale-transition scale-in blue"><i class="material-icons">star_border</i></a>
                     <!-- <a onclick='toggleInterest(this, "{{ event_id }}"))'class="btn-floating btn-large halfway-fab waves-effect waves-light scale-transition scale-in yellow"><iclass="material-icons">star</i></a> -->
                       
                   </div>
@@ -59,24 +59,22 @@
                           <tbody>
                               <tr>
 
-                              <td>{{event.event_location}}</td>
-                              <td>{{event.event_date}} {{event.event_time}}</td>
-                              <td>{{event.event_duration}}</td>
-                              <td>{{event.event_type}}</td>
-                              <td>{{event.event_interest}}<i class=material-icons>people</i></td>
+                              <td>{{workout.workout_date}} {{workout.workout_time}}</td>
+                              <td>{{workout.workout_length}}</td>
+                              <td>{{workout.workout_type}}</td>
+                              <td>{{workout.workout_interest}}<i class=material-icons>people</i></td>
                               <!-- ADMIN ONLY BUTTONS -->
 
                               <td nowrap>
                                 
                                   <!-- Alternatively to going to a new page, trigger a modal ??-->
-                                  <a class="btn-floating waves-effect waves-light green lighten-1" href="/events/modify/{{event.event_id}}"><i class="material-icons">edit</i></a>
-                                  <a class="btn-floating waves-effect waves-light red" onclick='confirmDelete("{{event.event_name}}","{{ event.event_id}}", "/events.html")'><i class="material-icons">delete</i></a>
+                                  <a class="btn-floating waves-effect waves-light green lighten-1" href="/workouts/modify/{{workouts.workout_id}}"><i class="material-icons">edit</i></a>
+                                  <a class="btn-floating waves-effect waves-light red" onclick='confirmDelete("{{workout.workout_name}}","{{ workout.workout_id}}", "/workouts.html")'><i class="material-icons">delete</i></a>
       
                               </td>
 
                           </tbody>
                       </table>
-                      <div class="container event-description">{{event.event_description}}</div>
                       
                       
                       <!-- TODO: Add a scrollable table (or series of cards??) listing the attendees who are interested -->
@@ -88,4 +86,4 @@
       </div>
   </main>
 
-<script src="/js/event_utils.js"></script>
+<script src="/js/workout_utils.js"></script>

@@ -2,10 +2,10 @@
 
     <div class="container">
 
-      <h1>Event Schedule</h1>
+      <h1>Workout Schedule</h1>
 
       <blockquote>
-        Click on the event name for more details!
+        Click on the workout name for more details!
         Click on <i class="material-icons tiny">sort</i> to sort by that column, or items in <i
           class="material-icons tiny">filter_list</i> columns to filter by that item.
       </blockquote>
@@ -28,7 +28,7 @@
               <a href="?sort=starred"><i class="material-icons">sort</i></a>
             </th> 
 
-            <th>Event</th>
+            <th>Workout</th>
             <th>Location <a href="?sort=location">
                 <i class="material-icons">sort</i></a>
               <i class="material-icons">filter_list</i>
@@ -50,31 +50,30 @@
         </thead>
 
         <tbody>
-          {{#each events}}
+          {{#each workouts}}
           <tr>
 
             <!-- USER ONLY - Initialize page with appropriate state of button -->
 
             <td>
-              <a onclick='toggleInterest(this, "{{ event_id }}")'
+              <a onclick='toggleInterest(this, "{{ workout_id }}")'
                 class="btn-floating btn-small waves-effect waves-light scale-transition scale-in blue"><i
                   class="material-icons">star_border</i></a>
               <!-- If user already "starred" this event, it should be a yellow star -->
               <!-- <a onclick='toggleInterest(this, "{{ event_id }}"))'class="btn-floating btn-small waves-effect waves-light scale-transition scale-in yellow"><iclass="material-icons">star</i></a> -->
             </td>
-            <td class="blue-text clickable" onclick="location.href='/events/{{event_id}}'">{{event_name}}</td>
-            <td> <a href='?filter=location:{{event_location}}'>{{event_location}} </a></td>
-            <td><a href='?filter=date:{{event_date_ymd}}'>{{event_date}}</a> {{event_time}}</td>
-            <td>{{event_duration}}</td>
-            <td> <a href='?filter=type:{{event_type}}'>{{event_type}}</a></td>
-            <td>{{event_interest}}<i class=material-icons>people</i></td>
+            <td class="blue-text clickable" onclick="location.href='/workouts/{{workout_id}}'">{{workout_name}}</td>
+            <td><a href='?filter=date:{{workout_date_ymd}}'>{{workout_date}}</a> {{workout_time}}</td>
+            <td>{{workout_length}}</td>
+            <td> <a href='?filter=type:{{workout_type}}'>{{workout_type}}</a></td>
+            <td>{{workout_interest}}<i class=material-icons>people</i></td>
             <!-- ADMIN ONLY BUTTONS -->
             <td nowrap>
 
-              <a class="btn-floating btn-small waves-effect waves-light green lighten-1" href="/events/modify/{{event_id}}"><i
+              <a class="btn-floating btn-small waves-effect waves-light green lighten-1" href="/workouts/modify/{{workout_id}}"><i
                   class="material-icons">edit</i></a>
               <a class="btn-floating waves-effect waves-light red"
-                onclick='confirmDelete("{{event_name}}","{{ event_id}}")'><i class="material-icons">delete</i></a>
+                onclick='confirmDelete("{{workout_name}}","{{ workout_id}}")'><i class="material-icons">delete</i></a>
 
             </td>
           </tr>
@@ -83,8 +82,8 @@
       </table>
     </div>
 
-    <a href="/events/create" class="btn-floating btn-large orange fixed-action-btn">
+    <a href="/workouts/create" class="btn-floating btn-large orange fixed-action-btn">
       <i class="large material-icons">create</i>
     </a>
 
-    <script src="/js/event_utils.js"></script>
+    <script src="/js/workout_utils.js"></script>

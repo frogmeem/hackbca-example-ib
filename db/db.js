@@ -39,6 +39,8 @@ const LOG_QUERY_ARGS = parseBoolean(process.env.LOG_QUERY_ARGS)
 const LOG_QUERY_SUMMARY = parseBoolean(process.env.LOG_QUERY_SUMMARY)
 const LOG_QUERY_RESULTS = parseBoolean(process.env.LOG_QUERY_RESULTS)
 
+
+
 connectionPool.queryCallback = function (sql, args = [], callback = ((error, results, fields)=>{})) {    
     let executed_query = connectionPool.query(sql, args, (error, results, fields)=>{
         //Log query results after receiving
