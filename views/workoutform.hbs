@@ -1,0 +1,125 @@
+
+    <form id="create_update_workout" method="post" action="/workouts">
+      <!-- action and method depend on C vs U-->
+      <input type="hidden" name="workout_id" id="workout_id" value="0">
+      <!-- server sets event_id value-->
+
+      <div class="container">
+        <div class="card grey lighten-4">
+          <div class="card-content">
+
+            <span class="card-title">
+              <h1>{{title}}</h1>
+            </span>
+
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" id="workout_name" name="workout_name" class="validate" data-length="32" required>
+                <label for="workout_name">workout Name</label>
+              </div>
+            </div>
+
+            <!-- https://materializecss.com/select.html -->
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="workout_type" name="workout_type" required>
+                  <option value="" disabled selected>Select a type</option>
+                  {{#each workout_types}}
+                  <option value="{{workout_type_id}}">{{workout_type}}</option>
+                  {{/each}}
+                </select>
+                <label for="workout_type">workout Type</label>
+              </div>
+
+              <div class="input-field col s6">
+                <select id="workout_location" name="workout_location" required>
+                  <option value="" disabled selected>Select a location</option>
+                  {{#each workout_locations}}
+                  <option value="{{workout_location_id}}">{{workout_location}}</option>
+                  {{/each}}
+                </select>
+                <label for="workout_location">Location</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <input type="text" id=workout_date name="workout_date" class="datepicker no-autoinit" required>
+                <label for="workout_date">Date</label>
+              </div>
+
+              <div class="input-field col s4">
+                <input type="text" id="workout_time" name="workout_time" class="timepicker no-autoinit" twelveHour=true
+                  required>
+                <label for="workout_time">Time</label>
+              </div>
+
+              <div class="input-field col s4">
+                <input type="number" id="workout_duration" name="workout_duration" min=0 step=15>
+                <label for="workout_duration">Duration (minutes)</label>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="workout_description" name="workout_description" class="materialize-textarea" data-length="500"></textarea>
+                <label for="workout_description">Description</label>
+              </div>
+            </div>
+
+            <div class="button_wrapper">
+              <button class="submit waves-effect waves-light btn" type="submit">Submit</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+<!-- Special initialization script for initializing .datepicker and.timepicker with options -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.datepicker');
+      var instances = M.Datepicker.init(elems, {
+        format: 'mm-dd-yyyy',
+        autoClose: true
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.timepicker');
+      var instances = M.Timepicker.init(elems, {
+        defaultTime: 'now', // Set default time: 'now', '1:30AM', '16:30'
+        twelveHour: true, // Use AM/PM or 24-hour format
+        autoClose: false, // automatic close timepicker
+      });
+    });
+
+    //TODO Form Validation
+
+
+    {{#if workout}}
+      {{#with workout}}
+          document.addEventListener('DOMContentLoaded', function() {
+
+            {{!-- Use triple mustaches to NOT escape characters --}}
+
+            document.getElementById("workout_id").value = "{{{workout_id}}}"
+            document.getElementById("workout_name").value = "{{{workout_name}}}";
+            document.getElementById("workout_type").value = "{{{workout_type}}}";
+            document.getElementById("workout_location").value = "{{{workout_location}}}";
+            document.getElementById("workout_date").value = "{{{workout_date}}}";
+            document.getElementById("workout_time").value = "{{{workout_time}}}";
+            document.getElementById("workout_duration").value = "{{{workout_duration}}}";
+            document.getElementById("workout_description").value = "{{{workout_description}}}";
+            
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, {});
+        });
+
+      {{/with}}
+
+    {{/if}}
+  </script>
