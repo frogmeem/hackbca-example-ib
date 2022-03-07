@@ -1,18 +1,37 @@
 <!-- https://materializecss.com/cards.html -->
     <div class="container">
       <h1>Fitness Tracker</h1>
-      <body>Good Morning Lorenzo</body>
+      <div class="row grey-text text-darken-3 center-align">
+        <h3>Good Morning Lorenzo</h3>
+      </div>
       <div class="row">
-        <div class="col s3">
-
-        </div>
-        <div class="col s7 ">
+        <div class="col s6">
           <div class="card grey darken-1">
-            <div class="card-action white-text">
-                <a href="/new_workout">New Workout</a>
+            <div class="card-content white-text center-align">
+              <span class="card-title"><h3>Most Recent Workouts</h3></span>
+              <div class="card-content white-text center-align">
+                <h5>INSERT WORKOUT 1 (DATETIME)</h5>
+              </div>
+              <div class="card-content white-text center-align">
+                <h5>INSERT WORKOUT 2 (DATETIME)</h5>
+              </div>
+              <div class="card-content white-text center-align">
+                <h5>INSERT WORKOUT 3 (DATETIME)</h5>
+              </div>
             </div>
-            <div class="card-action">
-              <a href="/edit_workout">Edit Workout</a>
+
+            <div class="card-action center-align">
+              <a class="white-text" href="/workouts">View All Previous Workouts</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s6">
+          <div class="card grey darken-1">
+            <div class="card-action center-align">
+                <a class="white-text" href="/workoutform"><h4>New Workout</h4></a>
+            </div>
+            <div class="card-action center-align">
+              <a class="white-text" href="/workoutform"><h4>Edit Workout</h4></a>
             </div>
 
           </div>
