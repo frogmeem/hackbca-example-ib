@@ -1,0 +1,119 @@
+<form id="create_update_project" method="post" action="/project">
+      <!-- action and method depend on C vs U-->
+      <input type="hidden" name="project_id" id="project_id" value="0">
+      <!-- server sets project_id value-->
+
+      <div class="container">
+        <div class="card grey lighten-4">
+          <div class="card-content">
+
+            <span class="card-title">
+              <h1>{{title}}</h1>
+            </span>
+
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" id="project_name" class="validate" data-length="32" required>
+                <label for="project_name">Project Name</label>
+              </div>
+            </div>
+
+            <!-- https://materializecss.com/select.html -->
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="project_type" name="project_type" required>
+                  <option value="" disabled selected>Select a type</option>
+                  <option value="Bot">Bot</option>
+                  <option value="Software">Software</option>
+                  <option value="Hardware">Hardware</option>
+                </select>
+                <label for="project_type">Project Type</label>
+              </div>
+
+              <div class="row">
+              <div class="input-field col s12">
+                <input type="text" id="project_ownwer" class="validate" data-length="32" required>
+                <label for="project_owner">Project Owner</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <input type="text" id=project_date name="project_date" class="datepicker no-autoinit" required>
+                <label for="project_date">Date</label>
+              </div>
+
+              <div class="input-field col s4">
+                <input type="text" id="project_time" name="project_time" class="timepicker no-autoinit" twelveHour=true
+                  required>
+                <label for="project_time">Time</label>
+              </div>
+
+              <div class="input-field col s4">
+                <input type="number" id="project_duration" name="project_duration" min=0 step=15>
+                <label for="project_duration">Duration (minutes)</label>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="project_description" class="materialize-textarea" data-length="500"></textarea>
+                <label for="project_description">Description</label>
+              </div>
+            </div>
+
+            <div class="button_wrapper">
+              <button class="submit waves-effect waves-light btn" type="submit">Create</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+<!-- Special initialization script for initializing .datepicker and.timepicker with options -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.datepicker');
+      var instances = M.Datepicker.init(elems, {
+        format: 'mm-dd-yyyy',
+        autoClose: true
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.timepicker');
+      var instances = M.Timepicker.init(elems, {
+        defaultTime: 'now', // Set default time: 'now', '1:30AM', '16:30'
+        twelveHour: true, // Use AM/PM or 24-hour format
+        autoClose: false, // automatic close timepicker
+      });
+    });
+
+    //TODO Form Validation
+
+
+    {{#if project}}
+      {{#with project}}
+          document.addEventListener('DOMContentLoaded', function() {
+
+            {{!-- Use triple mustaches to NOT escape characters --}}
+
+            document.getElementById("project_name").value = "{{{project_name}}}";
+            document.getElementById("project_type").value = "{{{project_type}}}";
+            document.getElementById("project_owner").value = "{{{project_owner}}}";
+            document.getElementById("project_date").value = "{{{project_date}}}";
+            document.getElementById("project_time").value = "{{{project_time}}}";
+            document.getElementById("project_duration").value = "{{{project_duration}}}";
+            document.getElementById("project_description").value = "{{{project_description}}}";
+            
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, {});
+        });
+
+      {{/with}}
+
+    {{/if}}
+  </script>

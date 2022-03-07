@@ -1,0 +1,91 @@
+<!-- 
+    STOP! You should understand how index.html AND projects.html are built first. 
+
+    This page is a prototype of an project page, showing details about a specific project.
+
+    An unregistered user will not see any buttons.
+    A registered user (attendee) will see the "star" buttons
+    An admin user will see the edit, delete, and create buttons
+
+    This page has the same nav header and footer as index; the main section is what contains different things.
+
+    Many things of note are shared with projects.html: 
+        Tables, which materialize has nice options for: https://materializecss.com/table.html
+        Icons, which are : https://materializecss.com/icons.html
+        Materialize "buttons": https://materializecss.com/buttons.html
+        Some custom CSS for formatting tables:         <link rel="stylesheet" href="/styles/tables.css">
+        Some custom JS for interactive buttons:     <script src="/js/project_utils.js"></script>
+        Some onclick attributes on certain clickable HTML elements, which trigger a snippet of JS
+
+    Some things of note SPECIFIC TO THIS PAGE:
+        Most of the page is a Materialize Card:    https://materializecss.com/cards.html 
+        Some custom CSS:         <link rel="stylesheet" href="/styles/project.css">
+
+
+    After this page, check out projectform.html (a sample add/modify project page)
+ -->
+
+  <main>
+      <div class="container">
+
+                <div class="card">
+                  <!-- image is optional -->
+                  <div class="card-image">
+                      <!-- Added div wrapper to create dark gradient -->
+                      <div class="card-image-gradient"> 
+                          <img src="/images/assembly.jpg">
+                      </div>
+                      <span class="card-title"><h1>{{project.project_name}}</h1></span>
+                    <!-- USER ONLY - Initialize page with appropriate state of button -->
+                    <a onclick='toggleInterest(this, "{{project.project_id }}")' class="btn-floating btn-large halfway-fab waves-effect waves-light scale-transition scale-in blue"><i class="material-icons">star_border</i></a>
+                    <!-- <a onclick='toggleInterest(this, "{{ project_id }}"))'class="btn-floating btn-large halfway-fab waves-effect waves-light scale-transition scale-in yellow"><iclass="material-icons">star</i></a> -->
+                      
+                  </div>
+                  <div class="card-content">
+
+                      <table class="centered responsive-table">
+                          <thead>
+                              <tr>
+                              <th>Owner </th>
+                              <th>Date / Time </th>
+                              <th>Duration</th>
+                              <th>Type </th>
+                              <th>Interest </th>
+                              <!-- ADMIN ONLY BUTTONS -->
+                              <th>Admin Op</th>
+                              
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+
+                              <td>{{project.project_owner}}</td>
+                              <td>{{project.project_date}} {{project.project_time}}</td>
+                              <td>{{project.project_duration}}</td>
+                              <td>{{project.project_type}}</td>
+                              <td>{{project.project_interest}}<i class=material-icons>people</i></td>
+                              <!-- ADMIN ONLY BUTTONS -->
+
+                              <td nowrap>
+                                
+                                  <!-- Alternatively to going to a new page, trigger a modal ??-->
+                                  <a class="btn-floating waves-effect waves-light green lighten-1" href="/projects/modify/{{project.project_id}}"><i class="material-icons">edit</i></a>
+                                  <a class="btn-floating waves-effect waves-light red" onclick='confirmDelete("{{project.project_name}}","{{ project.project_id}}", "/projects.html")'><i class="material-icons">delete</i></a>
+      
+                              </td>
+
+                          </tbody>
+                      </table>
+                      <div class="container project-description">{{project.project_description}}</div>
+                      
+                      
+                      <!-- TODO: Add a scrollable table (or series of cards??) listing the attendees who are interested -->
+                      <!-- https://vembarrajan.medium.com/html-css-tricks-scroll-able-table-body-tbody-d23182ae0fbc -->
+                  </div>
+                </div>
+          
+  
+      </div>
+  </main>
+
+<script src="/js/project_utils.js"></script>
